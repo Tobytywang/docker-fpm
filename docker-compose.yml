@@ -1,0 +1,14 @@
+web:
+  image: docker.io/nginx:alpine
+  ports:
+    - "80:80"
+  volumes:
+    - /home/duoyi/code/docker/nginx/conf/conf.d:/etc/nginx/conf.d
+    - /var/www:/usr/share/nginx/html
+  links:
+    - fpm
+fpm:
+  image: docker.io/php:fpm-alpine3.7
+  volumes:
+    - /home/duoyi/code/docker/fpm/conf:/usr/local/etc
+    - /var/www/:/var/www/html
