@@ -1,16 +1,23 @@
 version: '2'
 services:
-  web:
+  nginx:
     image: docker.io/nginx:alpine
+    hostname: nginx
+    networks:
+      - fn
     ports:
       - "80:80"
     volumes:
-      - ~/code/docker/docker-fpm/nginx/conf/conf.d:/etc/nginx/conf.d
+      - /home/duoyi/code/docker/docker-fpm/nginx:/etc/nginx/conf.d
       - /var/www:/usr/share/nginx/html
   fpm:
     image: docker.io/php:fpm-alpine3.7
+    hostname: fpm
+    networks:
+      - fn
     volumes:
-      - ~/code/docker/docker-fpm/fpm/conf:/usr/local/etc
-      - /var/www/:/var/www/html
-    links:
-      - web
+      - /home/duoyi/code/docker/docker-fpm/fpm:/usr/local/etc
+      - /var/www:/var/www/html
+networks:
+  fn:
+    driver: bridge
