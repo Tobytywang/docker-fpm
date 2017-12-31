@@ -1,24 +1,23 @@
 version: '2'
 services:
   nginx:
-    image: docker.io/nginx:alpine
+    image: docker.io/happylich/nginx
     hostname: nginx
-    networks:
-      - fn
+#    networks:
+#      - fn
     ports:
       - "80:80"
     volumes:
-      - /home/lich/code/docker/docker-fpm/nginx:/etc/nginx/conf.d
-      - /var/www:/usr/share/nginx/html
+      - /usr/local/docker/docker-fpm/nginx:/etc/nginx
+      - /var/www/html:/usr/share/nginx/html
   fpm:
-#    image: docker.io/php:fpm-alpine3.7
-    build: image_fpm/
+    image: docker.io/happylich/fpm
     hostname: fpm
-    networks:
-      - fn
+#    networks:
+#      - fn
     volumes:
-      - /home/lich/code/docker/docker-fpm/fpm:/usr/local/etc
-      - /var/www:/var/www/html
-networks:
-  fn:
-    driver: bridge
+      - /usr/local/docker/docker-fpm/fpm:/usr/local/etc
+      - /var/www/html:/var/www/html
+#networks:
+#  fn:
+#    driver: bridge
