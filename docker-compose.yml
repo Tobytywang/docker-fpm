@@ -8,15 +8,16 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /home/duoyi/code/docker/docker-fpm/nginx:/etc/nginx/conf.d
+      - /home/lich/code/docker/docker-fpm/nginx:/etc/nginx/conf.d
       - /var/www:/usr/share/nginx/html
   fpm:
-    image: docker.io/php:fpm-alpine3.7
+#    image: docker.io/php:fpm-alpine3.7
+    build: image_fpm/
     hostname: fpm
     networks:
       - fn
     volumes:
-      - /home/duoyi/code/docker/docker-fpm/fpm:/usr/local/etc
+      - /home/lich/code/docker/docker-fpm/fpm:/usr/local/etc
       - /var/www:/var/www/html
 networks:
   fn:
